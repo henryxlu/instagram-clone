@@ -9,16 +9,50 @@
 import UIKit
 
 class HomeStoryTableViewCell: UITableViewCell {
-
+    
+    
+    
+    @IBOutlet weak var homeStoryCollectionView: UICollectionView!
+    @IBOutlet weak var homeStoryCollectionViewFlowLayout: UICollectionViewFlowLayout!
+    
+    
+    func setupCollectionView() {
+        homeStoryCollectionView.delegate = self
+        homeStoryCollectionView.dataSource = self
+        homeStoryCollectionView.showsHorizontalScrollIndicator = false
+        
+        homeStoryCollectionViewFlowLayout.scrollDirection = .horizontal
+        
+    }
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        setupCollectionView()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }
+
+extension HomeStoryTableViewCell: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return homeStory.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "homeStoryCell", for: indexPath) as! HomeStoryCollectionViewCell
+        cell.homeStoryImage.image = UIImage(named: homeStory[indexPath.row])
+        
+        return cell
+    }
+    
+    
+}
+
+

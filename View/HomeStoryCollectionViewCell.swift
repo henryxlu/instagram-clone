@@ -9,5 +9,15 @@
 import UIKit
 
 class HomeStoryCollectionViewCell: UICollectionViewCell {
+ 
+    
+    @IBOutlet weak var homeStoryImage: UIImageView!{
+        didSet{
+            self.homeStoryImage.contentMode = .scaleAspectFill
+            self.homeStoryImage.layer.cornerRadius = self.homeStoryImage.frame.height / 2
+        }
+    
+    }
+    
     
 }
